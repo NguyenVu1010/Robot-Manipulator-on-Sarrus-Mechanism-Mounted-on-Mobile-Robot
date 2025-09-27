@@ -17,17 +17,17 @@ Hệ thống này kết hợp giữa:
 ## 🏗️ Kiến trúc hệ thống
 
 +------------------+
-| Mobile Robot | <-- Nền tảng di chuyển (ROS Navigation, LIDAR, camera)
+| Mobile Robot     | <-- Nền tảng di chuyển (ROS Navigation, LIDAR, camera)
 +------------------+
-│
-▼
+        │
+        ▼
 +------------------+
-| Sarrus Lift | <-- Cơ cấu song song cho phép nâng/hạ theo phương Z
+| Sarrus Lift      | <-- Cơ cấu song song cho phép nâng/hạ theo phương Z
 +------------------+
-│
-▼
+        │
+        ▼
 +------------------+
-| Robot Arm (6DOF)| <-- Cánh tay robot điều khiển bằng MoveIt!
+| Robot Arm (4DOF) | <-- Cánh tay robot điều khiển bằng MoveIt!
 +------------------+
 
 - **Mobile Robot Layer**: ROS1/ROS2, Gazebo, Navigation Stack.  
@@ -54,15 +54,15 @@ Hệ thống này kết hợp giữa:
   - `navigation`  
 
 ### Phần cứng (nếu chạy thực tế)
-- Robot tự hành (ví dụ MiR100, TurtleBot, hoặc custom base).  
+- Robot tự hành .  
 - Bộ cơ cấu Sarrus cơ khí.  
-- Cánh tay robot (ví dụ UR5, Franka, hoặc custom 6DOF).  
+- Cánh tay robot .  
 - LIDAR, camera RGB-D.  
 
 ---
 ## 🎥 Video minh họa
 
-[Demo Video](./videos/demo.mp4)
+[Demo Video](./Robot Manipulator on Sarrus Mechanism Mounted on Mobile Robot/videos/demo.mp4)
 
 ## 🚀 Cài đặt
 
