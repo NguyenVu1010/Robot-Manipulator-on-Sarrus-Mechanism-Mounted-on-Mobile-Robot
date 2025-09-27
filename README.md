@@ -63,6 +63,7 @@ Hệ thống này kết hợp giữa:
 ## 🎥 Video minh họa
 
 [Demo Video](./videos/demo.mp4)
+![Alt text](./img/demo.png)
 
 ## 🚀 Cài đặt
 
