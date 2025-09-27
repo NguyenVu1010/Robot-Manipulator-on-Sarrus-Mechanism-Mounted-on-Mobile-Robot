@@ -1,0 +1,20 @@
+<launch>
+  <!-- Chạy node move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    
+    <!-- Nạp các file cấu hình YAML -->
+    <rosparam file="$(find my_robot_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find my_robot_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find my_robot_navigation)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find my_robot_navigation)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find my_robot_navigation)/config/dwa_local_planner_params.yaml" command="load" />
+
+    <!-- Chỉ định local planner để sử dụng -->
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+
+    <!-- Remap topic cmd_vel -->
+    <!-- move_base sẽ publish lệnh vận tốc trên /cmd_vel -->
+    <!-- Chúng ta cần remap nó đến topic mà controller của đế đang nghe -->
+    <remap from="cmd_vel" to="/diff_drive_controller/cmd_vel"/>
+  </node>
+</launch>

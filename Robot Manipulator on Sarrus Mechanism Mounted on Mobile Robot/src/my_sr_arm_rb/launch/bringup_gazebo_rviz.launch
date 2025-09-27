@@ -1,0 +1,68 @@
+<launch>
+  <!-- ==== Gazebo world ==== -->
+  <arg name="paused"      default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui"         default="true"/>
+  <arg name="headless"    default="false"/>
+  <arg name="debug"       default="false"/>
+  <arg name="world_name"  default="$(find my_sr_arm_rb)/worlds/my_world.world"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name"   value="$(arg world_name)"/>
+    <arg name="paused"       value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui"          value="$(arg gui)"/>
+    <arg name="headless"     value="$(arg headless)"/>
+    <arg name="debug"        value="$(arg debug)"/>
+  </include>
+
+  <!-- ==== URDF lên param server ==== -->
+  <arg name="model_urdf" default="$(find my_sr_arm_rb)/urdf/my_sr_arm_rb.urdf"/>
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model_urdf)"/>
+
+  <!-- ==== Nạp controllers.yaml (chỉ 5 khớp tay) ==== -->
+  <rosparam file="$(find my_sr_arm_rb)/config/controllers.yaml" command="load"/>
+
+  <!-- ==== Spawn robot vào Gazebo ==== -->
+  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description -urdf -model my_sr_arm_rb -x 0 -y 0 -z 0"
+        output="screen"/>
+
+  <!-- ==== TF từ /joint_states (Gazebo sẽ phát) ==== -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+
+  <!-- ==== Spawner controllers (chỉ 5 khớp) ==== -->
+  <!-- Đảm bảo controllers.yaml có 'joint_state_controller' và 'joint_group_vel_controller' -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" output="screen"
+        args="joint_state_controller joint_group_vel_controller"/>
+
+  <!-- ==== Bridge: DesiredJointState -> velocity commands cho Gazebo ==== -->
+  <!-- Node này đọc /desired_joint_state của planner và xuất Float64MultiArray sang controller velocity -->
+  <node name="bridge_desired_to_vel_ctrl" pkg="my_robot_control" type="bridge_desired_to_vel_ctrl.py" output="screen">
+    <rosparam param="arm_joint_names">['joint_1','joint_2','joint_3','joint_4','joint_5']</rosparam>
+    <param name="vel_topic" value="/joint_group_vel_controller/command"/>
+  </node>
+
+  <!-- ==== Trajectory planner (resolved-rate) ==== -->
+  <node name="trajectory_node" pkg="my_robot_control" type="trajectory_node.py" output="screen">
+    <param name="publish_frequency" value="50.0"/>
+    <param name="arm_trajectory_duration" value="10.0"/>
+    <rosparam param="arm_joint_names">['joint_1','joint_2','joint_3','joint_4','joint_5']</rosparam>
+  </node>
+
+  <!-- ==== Vẽ quỹ đạo EE từ TF thật (không dùng forward1) ==== -->
+  <node pkg="my_robot_control" type="ee_trace_tf.py" name="ee_trace_tf" output="screen">
+    <param name="ee_link" value="gripper"/>         <!-- đúng tên link trong URDF -->
+    <param name="output_frame" value="base_link"/>  <!-- hoặc 'world' nếu bạn muốn quỹ đạo theo thế giới -->
+    <param name="min_dist" value="0.003"/>
+    <param name="line_width" value="0.01"/>
+  </node>
+
+  <!-- (tuỳ chọn) Ràng buộc ảo SR nếu cần -->
+   <node name="virtual_constraint_controller_node" pkg="my_sr_arm_rb" type="virtual_constraint_controller_node" output="screen"/> 
+
+  <!-- ==== RViz ==== -->
+  <node name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find my_sr_arm_rb)/rviz/default.rviz" output="screen"/>
+</launch>
+

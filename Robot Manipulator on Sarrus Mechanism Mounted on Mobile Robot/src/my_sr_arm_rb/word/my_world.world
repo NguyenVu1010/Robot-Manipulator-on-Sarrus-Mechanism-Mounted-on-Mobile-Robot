@@ -1,0 +1,21 @@
+<surface>
+  <friction>
+    <ode>
+      <!-- Đặt ma sát theo cả hai hướng lên giá trị rất cao -->
+      <mu>1.5</mu>
+      <mu2>1.5</mu2>
+      <!-- fdir1 không cần thiết cho mặt phẳng vô hạn -->
+      <!-- Các tham số ổn định va chạm -->
+      <slip1>0.0</slip1>
+      <slip2>0.0</slip2>
+    </ode>
+  </friction>
+  <contact>
+    <ode>
+      <!-- kp và kd cho mặt đất, giúp tiếp xúc ổn định -->
+      <kp>1e+13</kp> <!-- 10^13 -->
+      <kd>1.0</kd>
+      <min_depth>0.001</min_depth>
+    </ode>
+  </contact>
+</surface>

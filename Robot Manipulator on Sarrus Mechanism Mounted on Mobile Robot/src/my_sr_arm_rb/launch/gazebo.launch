@@ -1,0 +1,54 @@
+<launch>
+
+  <arg name="model_urdf" default="$(find my_sr_arm_rb)/urdf/my_sr_arm_rb.urdf"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model_urdf)"/>
+
+  <rosparam file="$(find my_sr_arm_rb)/config/controllers.yaml" command="load"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model my_robot -param robot_description"/>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" args="joint_state_controller arm_controller sr_joints_position_controller diff_drive_controller"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+
+  <node name="virtual_constraint_controller_node" pkg="my_sr_arm_rb" type="virtual_constraint_controller_node" output="screen"/>
+
+  <node name="trajectory_node" pkg="my_robot_control" type="trajectory_node.py" output="screen">
+    <param name="publish_frequency" value="50.0"/>
+    <param name="arm_trajectory_duration" value="10.0"/>
+    <param name="track_orientation" value="false"/>
+    <rosparam param="arm_joint_names">['joint_1','joint_2','joint_3','joint_4','joint_5']</rosparam>
+  </node>
+
+  <node name="gui_node" pkg="my_robot_control" type="arm_gui_tkinter.py" output="screen"/>
+
+  <node name="q_plot_node" pkg="my_robot_control" type="q_plot_node.py" output="screen"/>
+  <node name="q_logger_node" pkg="my_robot_control" type="q_logger_node.py" output="screen">
+    <param name="sample_stride" value="1"/>
+    <param name="gazebo_style" value="true"/>
+    <param name="log_velocity_line" value="false"/>
+    <param name="log_actual" value="false"/>
+    <param name="csv_path" value=""/>
+    <rosparam param="arm_joint_names">['joint_1','joint_2','joint_3','joint_4','joint_5']</rosparam>
+  </node>
+
+  <node pkg="my_robot_control" type="ee_trace_tf.py" name="ee_trace_tf" output="screen">
+   <param name="ee_link" value="gripper"/>
+   <param name="output_frame" value="base_link"/>
+   <param name="min_dist" value="0.0"/>
+   <param name="line_width" value="0.01"/>
+  </node>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_sr_arm_rb)/rviz/default.rviz" output="screen"/>
+
+</launch>

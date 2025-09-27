@@ -1,0 +1,21 @@
+global_costmap:
+  # Các tham số chung được lấy từ file common
+  # Tên frame toàn cục, được định nghĩa trong file common
+  global_frame: odom 
+  robot_base_frame: base_footprint
+  
+  # Tần số cập nhật bản đồ (Hz)
+  update_frequency: 1.0
+  publish_frequency: 1.0
+  
+  # Sử dụng bản đồ tĩnh (từ map_server) hay không. 
+  # Để 'false' nếu bạn chỉ di chuyển trong không gian odom mà không có bản đồ trước.
+  # Để 'true' nếu bạn dùng AMCL và có bản đồ.
+  static_map: false 
+  
+  # Kích thước của bản đồ mà costmap sẽ quản lý
+  # Bật chế độ cửa sổ trượt
+  rolling_window: true
+  # Kích thước cửa sổ vẫn cần đủ lớn để lập kế hoạch
+  width: 10.0
+  height: 10.0

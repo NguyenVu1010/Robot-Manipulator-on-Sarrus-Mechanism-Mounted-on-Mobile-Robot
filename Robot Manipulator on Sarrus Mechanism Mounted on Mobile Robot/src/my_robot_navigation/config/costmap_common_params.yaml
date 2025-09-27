@@ -1,0 +1,36 @@
+# Các tham số chung cho cả global và local costmap
+
+# Tên các frame quan trọng
+# Hãy kiểm tra bằng `rosrun tf view_frames` để đảm bảo các tên này đúng
+# base_link hoặc base_footprint tùy vào URDF của bạn
+robot_base_frame: base_footprint 
+# map hoặc odom, tùy vào bạn có dùng map hay chỉ odometry
+global_frame: odom 
+
+# Cấu hình footprint (hình dạng của robot)
+# Đây là hình chữ nhật. Dấu (+) là tâm robot (base_link)
+#  (+0.2, +0.15)-----------(+0.2, -0.15)
+#      |                        |
+#      |           +            |
+#      |                        |
+#  (-0.2, +0.15)-----------(-0.2, -0.15)
+# Chỉnh sửa các giá trị này cho khớp với kích thước robot của bạn
+footprint: [[-0.2, -0.15], [-0.2, 0.15], [0.2, 0.15], [0.2, -0.15]]
+# Bán kính nếu bạn muốn dùng hình tròn thay vì hình chữ nhật
+# robot_radius: 0.2 
+
+# Vùng đệm an toàn xung quanh robot (mét)
+inflation_radius: 0.35
+cost_scaling_factor: 3.0
+
+# Nguồn dữ liệu cảm biến để xây dựng bản đồ vật cản
+# 'scan' là tên của nguồn, bạn có thể đặt tên bất kỳ
+# Các tham số bên trong phải đúng
+observation_sources: scan
+scan: {
+  sensor_frame: laser_link,   # Tên frame của cảm biến laser trong URDF của bạn
+  data_type: LaserScan,       # Kiểu dữ liệu
+  topic: /scan,               # Topic mà cảm biến publish
+  marking: true,              # Dùng để đánh dấu vật cản
+  clearing: true              # Dùng để xóa vật cản khi nó biến mất
+}

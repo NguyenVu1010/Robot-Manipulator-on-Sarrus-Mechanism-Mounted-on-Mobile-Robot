@@ -1,0 +1,61 @@
+<launch>
+  <!-- URDF -->
+  <arg name="model_urdf" default="$(find my_sr_arm_rb)/urdf/my_sr_arm_rb.urdf"/>
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model_urdf)"/>
+
+  <!-- TF từ URDF -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+
+  <!-- Kinematics giả lập: xuất /joint_states và nhận lệnh SR -->
+  <node name="kinematic_sim_node" pkg="my_robot_control" type="kinematic_sim_node.py" output="screen">
+    <param name="mode" value="position"/>
+    <param name="rate" value="50.0"/>
+    <!-- tên 5 khớp tay -->
+    <rosparam param="arm_joint_names">['joint_1','joint_2','joint_3','joint_4','joint_5']</rosparam>
+  </node>
+
+  <!-- Node ràng buộc ảo (xuất lệnh tới /sr_joints_position_controller/command) -->
+  <node name="virtual_constraint_controller_node" pkg="my_sr_arm_rb" type="virtual_constraint_controller_node" output="screen"/>
+
+  <!-- Trajectory planner (resolved-rate) -->
+  <node name="trajectory_node" pkg="my_robot_control" type="trajectory_node.py" output="screen">
+    <param name="publish_frequency" value="50.0"/>
+    <param name="arm_trajectory_duration" value="10.0"/>
+    <param name="track_orientation" value="false"/>
+    <rosparam param="arm_joint_names">['joint_1','joint_2','joint_3','joint_4','joint_5']</rosparam>
+  </node>
+
+  <!-- (tuỳ chọn) GUI, plotter nếu không phụ thuộc Gazebo -->
+
+  <node name="gui_node" pkg="my_robot_control" type="arm_gui_tkinter.py" output="screen"/>
+  <!--
+  <node name="realtime_robot_plotter" pkg="my_robot_control" type="realtime_plotter.py" output="screen"/>
+  -->
+    <!-- Realtime plot q over time -->
+  <node name="q_plot_node" pkg="my_robot_control" type="q_plot_node.py" output="screen">
+    <!-- tuỳ chọn: <param name="window" value="25.0"/> -->
+    <!-- tuỳ chọn: <param name="arm_joint_names" value="['joint_1','joint_2','joint_3','joint_4','joint_5']"/> -->
+  </node>
+  <!-- Logger in ra đúng kiểu "Desired positions: [ ... ]" -->
+  <node name="q_logger_node" pkg="my_robot_control" type="q_logger_node.py" output="screen">
+    <param name="sample_stride" value="1"/>                <!-- in mọi điểm -->
+    <param name="gazebo_style" value="true"/>              <!-- bật format giống Gazebo -->
+    <param name="log_velocity_line" value="false"/>        <!-- true nếu muốn in cả velocities -->
+    <param name="log_actual" value="false"/>               <!-- để yên màn hình, chỉ in q_d -->
+    <param name="csv_path" value=""/>                      <!-- bỏ trống nếu không cần CSV -->
+    <rosparam param="arm_joint_names">['joint_1','joint_2','joint_3','joint_4','joint_5']</rosparam>
+  </node>
+
+  <node pkg="my_robot_control" type="ee_trace_tf.py" name="ee_trace_tf" output="screen">
+ <param name="ee_link" value="gripper"/>      <!-- ĐỔI TÊN NÀY -->
+  <param name="output_frame" value="base_link"/>  <!-- hoặc 'odom'/'world' nếu có TF -->
+  <param name="min_dist" value="0.0"/>
+  <param name="line_width" value="0.01"/>
+</node>
+
+
+
+  <!-- RViz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_sr_arm_rb)/rviz/default.rviz" output="screen"/>
+</launch>
+

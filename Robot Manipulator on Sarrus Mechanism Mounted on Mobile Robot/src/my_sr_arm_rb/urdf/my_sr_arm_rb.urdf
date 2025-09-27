@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="my_sr_arm_rb">
+  <link name="base_footprint"/>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-2.50679817512132E-17 0.000917004514666602 -0.0345737215417404"
+        rpy="0 0 0" />
+      <mass
+        value="9.51282461066678" />
+      <inertia
+        ixx="0.101777369494004"
+        ixy="-1.41765092965092E-17"
+        ixz="-8.46843311587748E-19"
+        iyy="0.066764511471082"
+        iyz="0.000283974031449322"
+        izz="0.1623129017019" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="laser_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.07"/>
+      </geometry>
+        <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+    <!-- 
+      Đặt LIDAR ở phía trước (x=0.15) và trên cao (z=0.12) của base_link
+      Hãy điều chỉnh các giá trị xyz này cho phù hợp với robot của bạn.
+    -->
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+  </joint>
+  <joint name="base_footprint_to_base_link_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+  </joint>
+  <link
+    name="link_1">
+    <inertial>
+      <origin
+        xyz="4.15401111759856E-16 1.37134461765461E-16 0.0641527277482495"
+        rpy="0 0 0" />
+      <mass
+        value="0.83811" />
+      <inertia
+        ixx="0.0048522"
+        ixy="-2.0219E-17"
+        ixz="7.0261E-18"
+        iyy="0.0048522"
+        iyz="-2.8053E-18"
+        izz="0.0096418" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_1"
+    type="prismatic">
+    <origin
+      xyz="0 0 0.1175"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0.25"
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_2">
+    <inertial>
+      <origin
+        xyz="-1.88784418462319E-15 6.88231281594591E-16 0.0301090649005537"
+        rpy="0 0 0" />
+      <mass
+        value="0.28679331350207" />
+      <inertia
+        ixx="0.000298086610732488"
+        ixy="1.93865174656487E-06"
+        ixz="5.88257660515374E-21"
+        iyy="0.000370196025887388"
+        iyz="2.26598936894765E-20"
+        izz="0.000270987787715891" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_2"
+    type="revolute">
+    <origin
+      xyz="0 0 0.0705288076205608"
+      rpy="0 0 0" />
+    <parent
+      link="link_1" />
+    <child
+      link="link_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_3">
+    <inertial>
+      <origin
+        xyz="0.085325 -0.00036189 0.00052473"
+        rpy="0 0 0" />
+      <mass
+        value="0.497898478741613" />
+      <inertia
+        ixx="0.00345913629291162"
+        ixy="0.000812340329779736"
+        ixz="-4.4103158422961E-19"
+        iyy="0.000613821863916615"
+        iyz="6.23070511408485E-19"
+        izz="0.00345495603922672" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_3"
+    type="revolute">
+    <origin
+      xyz="0 0 0.05"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="link_2" />
+    <child
+      link="link_3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="3.14"
+      effort="10"
+      velocity="10" />
+    <dynamics damping="0.2" friction="0.05"/>
+  </joint>
+  <link
+    name="link_4">
+    <inertial>
+      <origin
+        xyz="0.063102 -0.00055531 0.00038807"
+        rpy="0 0 0" />
+      <mass
+        value="0.427287350838624" />
+      <inertia
+        ixx="0.000303935550796999"
+        ixy="0.000457322444848827"
+        ixz="8.53499354917991E-10"
+        iyy="0.00160657601957944"
+        iyz="2.24822059047898E-10"
+        izz="0.00172281335678644" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_4"
+    type="revolute">
+    <origin
+      xyz="0.20006 -0.00084852 0.0012303"
+      rpy="0 0 0" />
+    <parent
+      link="link_3" />
+    <child
+      link="link_4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_5">
+    <inertial>
+      <origin
+        xyz="0.0161475987466572 0.000341052167922351 -9.0839720800892E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.0474207074268081" />
+      <inertia
+        ixx="9.91870767869604E-06"
+        ixy="-8.17772458172535E-07"
+        ixz="-1.07570327940406E-10"
+        iyy="2.12227576163512E-05"
+        iyz="-2.21062309946991E-10"
+        izz="2.31862223022262E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_5"
+    type="revolute">
+    <origin
+      xyz="0.14999 -0.00132 0.00092242"
+      rpy="0 -0.0061498 0" />
+    <parent
+      link="link_4" />
+    <child
+      link="link_5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="banh_phu_1">
+    <inertial>
+      <origin
+        xyz="0.00928750685773955 -0.000219255434259463 -0.000383687541710032"
+        rpy="0 0 0" />
+      <mass
+        value="0.00541003378791435" />
+      <inertia
+        ixx="1.13571540415714E-06"
+        ixy="-2.80545105521697E-10"
+        ixz="1.30295759495595E-07"
+        iyy="7.78328307905765E-07"
+        iyz="2.38145103878467E-10"
+        izz="7.8672611747261E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/banh_phu_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/banh_phu_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_bp_1"
+    type="continuous">
+    <origin
+      xyz="0 -0.1822 0.03"
+      rpy="0 0 -1.0422" />
+    <parent
+      link="base_link" />
+    <child
+      link="banh_phu_1" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="banh_phu_2">
+    <inertial>
+      <origin
+        xyz="5.55111512312578E-17 -1.38777878078145E-17 -0.015"
+        rpy="0 0 0" />
+      <mass
+        value="0.00669807920710659" />
+      <inertia
+        ixx="4.12952158190464E-07"
+        ixy="3.25707066357271E-23"
+        ixz="-1.45583787809333E-22"
+        iyy="4.12952158190464E-07"
+        iyz="1.89262030673387E-22"
+        izz="6.1494382382171E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/banh_phu_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/banh_phu_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_bp_2"
+    type="continuous">
+    <origin
+      xyz="0.012473 0.014786 -0.015"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="banh_phu_1" />
+    <child
+      link="banh_phu_2" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="banh_trai">
+    <inertial>
+      <origin
+        xyz="1.09634523681734E-15 2.04003480774873E-15 -0.01"
+        rpy="0 0 0" />
+      <mass
+        value="0.11437626123491" />
+      <inertia
+        ixx="5.09054247575145E-05"
+        ixy="-2.42358241348908E-39"
+        ixz="-6.93090973642687E-38"
+        iyy="5.09054247575145E-05"
+        iyz="-7.00213903063554E-22"
+        izz="9.44863018974849E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/banh_trai.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/banh_trai.STL" />
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>1000.0</mu2>
+            <kp>1000000.0</kp>
+            <kd>100.0</kd>
+            <minDepth>0.001</minDepth>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+  </link>
+  <joint
+    name="joint_banh_trai"
+    type="continuous">
+    <origin
+      xyz="0.17 0.125 0.0405"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="banh_trai" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="banh_phai">
+    <inertial>
+      <origin
+        xyz="-1.1518563880486E-15 -2.08166817117217E-15 0.01"
+        rpy="0 0 0" />
+      <mass
+        value="0.11437626123491" />
+      <inertia
+        ixx="5.09054247575145E-05"
+        ixy="7.11588768466948E-38"
+        ixz="-5.20688945211591E-21"
+        iyy="5.09054247575145E-05"
+        iyz="-7.00213903063554E-22"
+        izz="9.44863018974849E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/banh_phai.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/banh_phai.STL" />
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>1000.0</mu2>
+            <kp>1000000.0</kp>
+            <kd>100.0</kd>
+            <minDepth>0.001</minDepth>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+  </link>
+  <joint
+    name="joint_banh_phai"
+    type="continuous">
+    <origin
+      xyz="-0.17 0.125 0.0405"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="banh_phai" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="link_sr_11">
+    <inertial>
+      <origin
+        xyz="-0.0628776555368032 -0.0493942151111784 -0.00499601359335361"
+        rpy="0 0 0" />
+      <mass
+        value="0.0643607669234624" />
+      <inertia
+        ixx="0.000100219372552478"
+        ixy="-0.000120600639716103"
+        ixz="-1.15763498645183E-08"
+        iyy="0.000159006979934966"
+        iyz="-8.93259292240583E-09"
+        izz="0.000258151622538778" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_sr_11"
+    type="revolute">
+    <origin
+      xyz="0.135 -0.11 0.1175"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_sr_11" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.785"
+      upper="0.785"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_sr_21">
+    <inertial>
+      <origin
+        xyz="-0.0172499332796483 0.0945273886337612 0.00299012819222377"
+        rpy="0 0 0" />
+      <mass
+        value="0.0824501328250599" />
+      <inertia
+        ixx="0.000332741870549925"
+        ixy="5.9072974742395E-05"
+        ixz="-1.89754110718723E-06"
+        iyy="1.98114646077501E-05"
+        iyz="1.0398159286034E-05"
+        izz="0.000348534868286062" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_21.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_21.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_sr_21"
+    type="revolute">
+    <origin
+      xyz="-0.12582 -0.098839 0"
+      rpy="0 0 -2.4757" />
+    <parent
+      link="link_sr_11" />
+    <child
+      link="link_sr_21" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_sr_12">
+    <inertial>
+      <origin
+        xyz="-0.0628776555368237 -0.0493942151111664 -0.0049"
+        rpy="0 0 0" />
+      <mass
+        value="0.0643607669234623" />
+      <inertia
+        ixx="0.000100219372552382"
+        ixy="-0.00012060063971608"
+        ixz="-1.15763498639525E-08"
+        iyy="0.000159006979935062"
+        iyz="-8.93259292196564E-09"
+        izz="0.000258151622538778" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_sr_12"
+    type="revolute">
+    <origin
+      xyz="0.11 0.135 0.1175"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_sr_12" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.758"
+      upper="0.758"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_sr_22">
+    <inertial>
+      <origin
+        xyz="-0.017249933279858 -0.0945273886337668 -0.0029"
+        rpy="0 0 0" />
+      <mass
+        value="0.0824501328250598" />
+      <inertia
+        ixx="0.000332741870549759"
+        ixy="-5.90729747428335E-05"
+        ixz="1.8975411072018E-06"
+        iyy="1.98114646079156E-05"
+        iyz="1.03981592860313E-05"
+        izz="0.000348534868286062" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_21.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_21.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_sr_22"
+    type="revolute">
+    <origin
+      xyz="-0.12582 -0.098839 0"
+      rpy="0 0 -2.4757" />
+    <parent
+      link="link_sr_12" />
+    <child
+      link="link_sr_22" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_sr_13">
+    <inertial>
+      <origin
+        xyz="-0.0628776555368189 -0.0493942151111262 -0.00499601359335525"
+        rpy="0 0 0" />
+      <mass
+        value="0.0643607669234624" />
+      <inertia
+        ixx="0.000100219372552391"
+        ixy="-0.000120600639716082"
+        ixz="-1.1576349865608E-08"
+        iyy="0.000159006979935053"
+        iyz="-8.93259292322787E-09"
+        izz="0.000258151622538778" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_sr_13"
+    type="revolute">
+    <origin
+      xyz="-0.135 0.11 0.1175"
+      rpy="-1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_sr_13" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.785"
+      upper="0.785"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_sr_23">
+    <inertial>
+      <origin
+        xyz="-0.0172499332797385 0.0945273886336995 0.00299012819222488"
+        rpy="0 0 0" />
+      <mass
+        value="0.0824501328250598" />
+      <inertia
+        ixx="0.000332741870549834"
+        ixy="5.90729747426333E-05"
+        ixz="-1.89754110719515E-06"
+        iyy="1.98114646078401E-05"
+        iyz="1.03981592860325E-05"
+        izz="0.000348534868286061" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_21.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_21.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_sr_23"
+    type="revolute">
+    <origin
+      xyz="-0.12582 -0.098839 0"
+      rpy="0 0 -2.4757" />
+    <parent
+      link="link_sr_13" />
+    <child
+      link="link_sr_23" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_sr_14">
+    <inertial>
+      <origin
+        xyz="-0.0628776555367923 -0.0493942151110898 -0.00499601359335358"
+        rpy="0 0 0" />
+      <mass
+        value="0.0643607669234623" />
+      <inertia
+        ixx="0.000100219372552506"
+        ixy="-0.00012060063971611"
+        ixz="-1.1576349863928E-08"
+        iyy="0.000159006979934938"
+        iyz="-8.93259292195446E-09"
+        izz="0.000258151622538778" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_sr_14"
+    type="continuous">
+    <origin
+      xyz="-0.109999999999999 -0.135000000000001 0.1175"
+      rpy="-1.5707963267949 0 -3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_sr_14" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.785"
+      upper="0.785"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link
+    name="link_sr_24">
+    <inertial>
+      <origin
+        xyz="-0.0172499332795843 0.0945273886336792 0.00299012819222383"
+        rpy="0 0 0" />
+      <mass
+        value="0.0824501328250598" />
+      <inertia
+        ixx="0.00033274187054995"
+        ixy="5.90729747423284E-05"
+        ixz="-1.89754110718502E-06"
+        iyy="1.9811464607725E-05"
+        iyz="1.03981592860344E-05"
+        izz="0.000348534868286061" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_21.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_sr_arm_rb/meshes/link_sr_21.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_sr_24"
+    type="revolute">
+    <origin
+      xyz="-0.12582 -0.098839 0"
+      rpy="0 0 -2.4757" />
+    <parent
+      link="link_sr_14" />
+    <child
+      link="link_sr_24" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="10"
+      velocity="10" />
+  </joint>
+  <link name="gripper">
+    <!-- Thường để trống, hoặc có thể thêm một khối inertial nhỏ nếu cần -->
+    <inertial>
+      <mass value="1e-5" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+    <!-- Bạn có thể thêm một khối visual nhỏ để nhìn thấy TCP trong RViz -->
+    <visual>
+        <geometry>
+            <sphere radius="0.001"/>
+        </geometry>
+        <material name="red">
+            <color rgba="1 0 0 1"/>
+        </material>
+    </visual>
+  </link>
+  <joint name="joint_gripper" type="fixed">
+    <parent link="link_5"/>
+    <child link="gripper"/>
+    <origin xyz="0.05 0 0" rpy="0 0 0"/>
+  </joint>
+  <transmission name="tran_1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_1"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></joint>
+    <actuator name="motor_1"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_2"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></joint>
+    <actuator name="motor_2"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_3"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></joint>
+    <actuator name="motor_3"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_4"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></joint>
+    <actuator name="motor_4"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_5"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></joint>
+    <actuator name="motor_5"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></actuator>
+  </transmission>
+
+  <!-- 2. Transmissions cho các Khớp Bánh xe (Velocity Control) -->
+  <transmission name="tran_banh_trai">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_banh_trai"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></joint>
+    <actuator name="motor_banh_trai"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_banh_phai">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_banh_phai"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></joint>
+    <actuator name="motor_banh_phai"><hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface></actuator>
+  </transmission>
+  
+  <!-- 3. "Dummy" Transmissions cho các Khớp Bị động (Để có TF Tree đầy đủ) -->
+  <transmission name="tran_sr_11">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_sr_11"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="motor_sr_11"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_sr_21">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_sr_21"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="motor_sr_21"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_sr_12">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_sr_12"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="motor_sr_12"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_sr_22">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_sr_22"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="motor_sr_22"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_sr_13">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_sr_13"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="motor_sr_13"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_sr_23">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_sr_23"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="motor_sr_23"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_sr_14">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_sr_14"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="motor_sr_14"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_sr_24">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_sr_24"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="motor_sr_24"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_bp_1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_bp_1"><hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface></joint>
+    <actuator name="motor_bp_1"><hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <transmission name="tran_bp_2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_bp_2"><hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface></joint>
+    <actuator name="motor_bp_2"><hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface></actuator>
+  </transmission>
+  <gazebo>
+    <self_collide>false</self_collide>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+  <gazebo reference="laser_link">
+    <!-- 1. Thẻ sensor phải nằm ngay bên trong thẻ gazebo -->
+    <sensor type="ray" name="hokuyo_laser_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>20</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.1416</min_angle>
+            <max_angle>3.1416</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.2</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      
+      <!-- 2. Thẻ plugin phải nằm ngay bên trong thẻ sensor -->
+      <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+        <!-- 3. Các tham số của plugin -->
+        <topicName>/scan</topicName>
+        <frameName>laser_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

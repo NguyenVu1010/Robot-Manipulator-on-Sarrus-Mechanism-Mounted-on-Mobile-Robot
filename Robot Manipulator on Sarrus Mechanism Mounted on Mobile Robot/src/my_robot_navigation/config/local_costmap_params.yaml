@@ -1,0 +1,19 @@
+local_costmap:
+  # Các tham số chung được lấy từ file common
+  global_frame: odom
+  robot_base_frame: base_footprint
+  
+  # Tần số cập nhật (Hz). Cần cao hơn global costmap
+  update_frequency: 5.0
+  publish_frequency: 2.0
+  
+  # Không dùng bản đồ tĩnh cho local costmap
+  static_map: false
+  
+  # Luôn di chuyển theo robot (rolling window)
+  rolling_window: true
+  
+  # Kích thước của cửa sổ cục bộ xung quanh robot (mét)
+  width: 4.0
+  height: 4.0
+  resolution: 0.05

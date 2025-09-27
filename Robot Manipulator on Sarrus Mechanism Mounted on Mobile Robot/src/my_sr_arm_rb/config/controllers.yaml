@@ -1,0 +1,93 @@
+# =================================================================================
+# ==            File Cấu hình Controller cho my_sr_arm_rb                        ==
+# =================================================================================
+
+# ---------------------------------------------------------------------------------
+# 1. JOINT STATE CONTROLLER
+# ---------------------------------------------------------------------------------
+# - Nhiệm vụ: Đọc trạng thái (vị trí, vận tốc, moment) của TẤT CẢ các khớp đã được
+#   đăng ký (thông qua thẻ <transmission>) và publish chúng lên topic /joint_states.
+# - Đây là controller bắt buộc để đồng bộ hóa RViz và Gazebo và tạo TF tree đầy đủ.
+# ---------------------------------------------------------------------------------
+
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+
+# ---------------------------------------------------------------------------------
+# 2. ARM CONTROLLER
+# ---------------------------------------------------------------------------------
+# - Nhiệm vụ: Nhận một quỹ đạo (trajectory) cho các khớp cánh tay và tính toán
+#   moment (effort) cần thiết để các khớp đi theo quỹ đạo đó.
+# ---------------------------------------------------------------------------------
+
+arm_controller:
+  type: velocity_controllers/JointTrajectoryController
+  
+  # Danh sách các khớp mà controller này sẽ điều khiển
+  joints:
+    - joint_1
+    - joint_2
+    - joint_3
+    - joint_4
+    - joint_5
+  
+  # Hệ số PID: Rất quan trọng để robot hoạt động ổn định
+  # Bắt đầu với các giá trị P thấp để tránh rung lắc, sau đó tinh chỉnh dần
+  gains:
+    joint_1: {p: 5000.0, i: 1.0, d: 10.0}  # Khớp tịnh tiến cần P lớn hơn
+    joint_2: {p: 50.0, i: 0.1, d: 0.5}
+    joint_3: {p: 50.0, i: 0.1, d: 0.5}
+    joint_4: {p: 50.0, i: 0.1, d: 0.5}
+    joint_5: {p: 30.0, i: 0.08, d: 0.05}
+
+# Cần thêm phần này nếu chưa có
+
+# ---------------------------------------------------------------------------------
+# 3. DIFFERENTIAL DRIVE CONTROLLER
+# ---------------------------------------------------------------------------------
+# - Nhiệm vụ: Điều khiển hai bánh xe chính để robot di chuyển. Nhận lệnh vận tốc
+#   (Twist) từ topic /cmd_vel và tính toán vận tốc cho từng bánh xe.
+# ---------------------------------------------------------------------------------
+diff_drive_controller:
+  type: "diff_drive_controller/DiffDriveController"
+  
+  # Tên các khớp bánh xe trong file URDF
+  left_wheel: 'joint_banh_trai'
+  right_wheel: 'joint_banh_phai'
+  
+  # Tần suất publish thông tin odometry
+  publish_rate: 50
+  
+  # Các tham số cho bộ lọc Kalman (có thể để mặc định)
+  pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  
+  # Thời gian timeout cho lệnh vận tốc (giây)
+  base_frame_id: base_footprint 
+  odom_frame_id: odom
+  cmd_vel_timeout: 0.25
+  
+  # !!! CÁC THAM SỐ VẬT LÝ QUAN TRỌNG !!!
+  # BẠN BẮT BUỘC PHẢI ĐO LẠI CÁC GIÁ TRỊ NÀY TỪ MÔ HÌNH CAD ĐỂ ROBOT CHẠY ĐÚNG
+  
+  # Khoảng cách giữa tâm của hai bánh xe (mét).
+  # Dựa trên URDF: 0.17 - (-0.17) = 0.34
+  wheel_separation: 0.34 
+  
+  # Bán kính của bánh xe (mét)
+  wheel_radius: 0.04 # GIÁ TRỊ VÍ DỤ, HÃY ĐO LẠI BÁN KÍNH BÁNH XE THẬT TỪ CAD!
+sr_joints_position_controller:
+  type: position_controllers/JointGroupPositionController
+  
+  # Danh sách khớp, thứ tự này phải khớp với lệnh bạn gửi
+  joints:
+    - joint_sr_11
+    - joint_sr_21
+    - joint_sr_12
+    - joint_sr_22
+    - joint_sr_13
+    - joint_sr_23
+    - joint_sr_14
+    - joint_sr_24

@@ -1,0 +1,39 @@
+# Tham số cho DWA (Dynamic Window Approach) Local Planner
+DWAPlannerROS:
+  # Giới hạn vận tốc của robot
+  # Chỉnh các giá trị này cho khớp với robot của bạn
+  max_vel_x: 0.25      # Vận tốc thẳng tối đa (m/s)
+  min_vel_x: -0.25     # Cho phép đi lùi
+
+  max_vel_y: 0.0       # Robot của bạn là diff-drive, không đi ngang được
+  min_vel_y: 0.0
+
+  max_trans_vel: 0.25  # Vận tốc tịnh tiến tối đa (m/s)
+  min_trans_vel: 0.1   # Vận tốc tịnh tiến tối thiểu
+
+  max_rot_vel: 0.8     # Vận tốc xoay tối đa (rad/s)
+  min_rot_vel: 0.2
+
+  # Giới hạn gia tốc
+  acc_lim_x: 2.5
+  acc_lim_y: 0.0
+  acc_lim_theta: 3.2
+  
+  # Dung sai mục tiêu
+  xy_goal_tolerance: 0.02 # Dung sai 10cm
+  yaw_goal_tolerance: 0.035 # Dung sai ~10 độ
+  latch_xy_goal_tolerance: true
+  # Các tham số về quỹ đạo
+  sim_time: 1.7        # Thời gian mô phỏng quỹ đạo về phía trước (giây)
+  vx_samples: 3        # Số lượng mẫu vận tốc x
+  vy_samples: 1        # Robot không có vận tốc y
+  vtheta_samples: 20
+  
+  # Các tham số "scoring" (chấm điểm quỹ đạo)
+  path_distance_bias: 32.0
+  goal_distance_bias: 24.0
+  occdist_scale: 0.01
+  forward_point_distance: 0.325
+  stop_time_buffer: 0.2
+  scaling_speed: 0.25
+  max_scaling_factor: 0.2
