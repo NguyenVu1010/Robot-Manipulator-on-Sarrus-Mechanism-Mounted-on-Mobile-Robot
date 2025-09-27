@@ -62,7 +62,7 @@ Hệ thống này kết hợp giữa:
 ---
 ## 🎥 Video minh họa
 
-[Demo Video](./Robot Manipulator on Sarrus Mechanism Mounted on Mobile Robot/videos/demo.mp4)
+[Demo Video](./videos/demo.mp4)
 
 ## 🚀 Cài đặt
 
